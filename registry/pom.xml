@@ -88,6 +88,29 @@
             <artifactId>google-api-services-oauth2</artifactId>    
              <version>v2-rev65-1.17.0-rc</version>  
         </dependency>
+        
+        
+        
+        
+        
+        <!-- Azure Dependencies start -->
+         
+        <!-- https://mvnrepository.com/artifact/com.microsoft.azure.sdk.iot.provisioning/provisioning-service-client -->
+      <dependency>
+	     <groupId>com.microsoft.azure.sdk.iot.provisioning</groupId>
+         <artifactId>provisioning-service-client</artifactId>
+         <version>1.7.0</version>
+      </dependency>
+       
+       
+  
+        
+        
+        
+        
+        
+        
+        
 	</dependencies>
    
 	<build>

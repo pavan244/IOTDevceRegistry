@@ -52,8 +52,7 @@ import com.google.api.services.oauth2.model.Userinfoplus;
 public class JwtAuthenticationController {
 
 	
-	@Autowired
-    private AuthenticationManager authenticationManager;
+
 
 	@Autowired
 	private JwtTokenUtil jwtTokenUtil;

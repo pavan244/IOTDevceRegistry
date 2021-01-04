@@ -1,4 +1,4 @@
-package com.iotdevices.registry.security;
+package com.iotdevices.registry.tokenValidation;
 
 import java.util.ArrayList;
 

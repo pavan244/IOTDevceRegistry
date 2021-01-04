@@ -1,4 +1,4 @@
-package com.iotdevices.registry.security;
+package com.iotdevices.registry.tokenValidation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +22,9 @@ import com.iotdevices.registry.jwt.JwtRequestFilter;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+public class WebSecurityConfig
+
+extends WebSecurityConfigurerAdapter {
  
 
 
@@ -59,7 +61,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
 		// We don't need CSRF for this example
 		httpSecurity.cors().and().csrf().disable() 
-				.authorizeRequests().antMatchers("/create","/login","/authenticate","/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**").permitAll().
+		
+		
+		
+			//	.authorizeRequests().antMatchers("/create","/login","/authenticate","/v2/api-docs", "/configuration/**", "/swagger*/**", "/webjars/**"
+			//			,"/createDevice","/getAllDevice","/deleteADevice","/getADevice").permitAll().
+	
+	      
+				
+				.authorizeRequests().antMatchers("/**").permitAll().	
 			anyRequest().authenticated().and().
 				exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint).and().sessionManagement()
 			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
