@@ -94,6 +94,31 @@
         
         
         <!-- Azure Dependencies start -->
+        
+        
+         <dependency>
+            <groupId>com.microsoft.azure.sdk.iot.provisioning.security</groupId>
+            <artifactId>security-provider</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+       <!-- https://mvnrepository.com/artifact/com.microsoft.azure.sdk.iot.provisioning/provisioning-device-client -->
+        <dependency>
+          <groupId>com.microsoft.azure.sdk.iot.provisioning</groupId>
+          <artifactId>provisioning-device-client</artifactId>
+          <version>1.7.1</version>
+        </dependency>
+
+        
+         <dependency>
+          <groupId>com.microsoft.azure.sdk.iot</groupId>
+           <artifactId>iot-device-client</artifactId>
+            <version>1.28.0</version>
+         </dependency>
+
+  
+        
+        
+        
          
         <!-- https://mvnrepository.com/artifact/com.microsoft.azure.sdk.iot.provisioning/provisioning-service-client -->
       <dependency>

@@ -16,16 +16,12 @@ public class ServiceEnrollmentSample
     /*
      * Details of the Provisioning.
      */
-    private static final String PROVISIONING_CONNECTION_STRING = "HostName=MyDeviceProvisioningService1.azure-devices-provisioning.net;SharedAccessKeyName=provisioningserviceowner;SharedAccessKey=wD/DST5qDrh/wyGrRb5FcchbMx97kXLAMHtbGFVDFJU=";
+	private static final String PROVISIONING_CONNECTION_STRING = "HostName=TMPOCDPS.azure-devices-provisioning.net;SharedAccessKeyName=provisioningserviceowner;SharedAccessKey=+/2ffE09ySRBQ7cQwLx4MbSMyEV8F6dW+cD3oPFnxuQ=";
 
-    private static final String REGISTRATION_ID = "MyFirstRegistartion";
-    private static final String TPM_ENDORSEMENT_KEY = "AToAAQALAAMAsgAgg3GXZ0SEs/gakMyNRqXXJP1S124GUgtk8qHaGzMUaaoABgCAAEMAEAgAAAAAAAEAxsj2gUS" +
-            "cTk1UjuioeTlfGYZrrimExB+bScH75adUMRIi2UOMxG1kw4y+9RW/IVoMl4e620VxZad0ARX2gUqVjYO7KPVt3d" +
-            "yKhZS3dkcvfBisBhP1XH9B33VqHG9SHnbnQXdBUaCgKAfxome8UmBKfe+naTsE5fkvjb/do3/dD6l4sGBwFCnKR" +
-            "dln4XpM03zLpoHFao8zOwt8l/uP3qUIxmCYv9A7m69Ms+5/pCkTu/rK4mRDsfhZ0QLfbzVI6zQFOKF/rwsfBtFe" +
-            "WlWtcuJMKlXdD8TXWElTzgh7JS4qhFzreL0c1mI0GCj+Aws0usZh7dLIVPnlgZcBhgy1SSDQMQ==";
+    private static final String REGISTRATION_ID = "kaz2wx2ismgmhx4e7gahwysxs5grpkqtdvjfymh6gyyc3lvgvw2q";
+    private static final String TPM_ENDORSEMENT_KEY = "AToAAQALAAMAsgAgg3GXZ0SEs/gakMyNRqXXJP1S124GUgtk8qHaGzMUaaoABgCAAEMAEAgAAAAAAAEAoj2EAcnJbfXnxh/0s6FfuDkaD7Vh9A0GFz3odfVVgqJoLGNi+THnjr1fy5vnKQ7np0sBFE64qbQE5WFCU0Weqi+iLSSxAJjwiRgB8nuC336Ya/pLr6ZYGPbi7vhvRaimlK0rgVBIyRuB7e/GvG9b2Fyt0XYNG6dKmrrKE4MJtVjkoS/KpKCA6Km86+DvtH21k+E6mZ3I6mtEeiVdDsAAKgM6ghuZBYagEsLm7QZRe5hjjnmUtN9kxdthHen9HbxHmmMayUfE70PRZ2t4WXnuAN0JN7K5vkhySgLIyQCTDXCw3OVKI7k1svrKAD77WW3+gQ4qmR+oHqe8q1f4MJh1bw==";
     // Optional parameters
-    private static final String IOTHUB_HOST_NAME = "PavanIOTHub.azure-devices.net";
+    private static final String IOTHUB_HOST_NAME = "TMPOC.azure-devices.net";
     private static final String DEVICE_ID = "myJavaDevice";
     private static final ProvisioningStatus PROVISIONING_STATUS = ProvisioningStatus.ENABLED;
 

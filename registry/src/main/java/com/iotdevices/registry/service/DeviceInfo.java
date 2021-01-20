@@ -11,9 +11,47 @@ public class DeviceInfo {
 	private String id;
 	private String name;
 	private String description;
-	private List<DataPoints> dataPoints;
-	private List<DeviceSettings> deviceSettings;
+	@JsonProperty("date") 
+	private String Date;
+	@JsonProperty("status") 
+	private String status;
 	
+	@JsonProperty("version")
+	private String version;
+	
+	@JsonProperty("creationDate")
+	private String creationDate;
+	
+	@JsonProperty("location")
+	private String location;
+	
+	
+	@JsonProperty("dataPoints") 
+	private List<DataPoints> dataPoints;
+	
+	@JsonProperty("settings") 
+    private List<DeviceSettings> deviceSettings;
+	
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	public String getDate() {
+		return Date;
+	}
+
+
+	public void setDate(String date) {
+		Date = date;
+	}
+
+
 	public String getId() {
 		return id;
 	}
@@ -44,7 +82,7 @@ public class DeviceInfo {
 	}
 
 
-	
+
 	public List<DataPoints> getDataPoints() {
 		return dataPoints;
 	}
@@ -64,7 +102,7 @@ public class DeviceInfo {
 		this.deviceSettings = deviceSettings;
 	}
 
-
+   
 	
 	
 	@JsonCreator
@@ -78,6 +116,43 @@ public class DeviceInfo {
 		        setDeviceSettings(deviceSettings);
 			}
 	
-	
+/*	@JsonCreator
+	public DeviceInfo(@JsonProperty("id") String id,@JsonProperty("name") String name,@JsonProperty("description") String description)
+			{
+		        setId(id); 
+		        setName(name);
+		        setDescription(description);
+		        
+			}
+*/
+
+	public String getVersion() {
+		return version;
+	}
+
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
+
+	public String getCreationDate() {
+		return creationDate;
+	}
+
+
+	public void setCreationDate(String creationDate) {
+		this.creationDate = creationDate;
+	}
+
+
+	public String getLocation() {
+		return location;
+	}
+
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
 	
 }
