@@ -108,7 +108,7 @@ public class ServiceEnrollmentService {
    
     
     
-    public IndividualEnrollment createEnrollment(DeviceInfo deviceInfo,SecurityProviderTPMEmulatorMyImpl securityProviderImpl) throws ProvisioningServiceClientException, SecurityProviderException
+    public DeviceInfo createEnrollment(DeviceInfo deviceInfo,SecurityProviderTPMEmulatorMyImpl securityProviderImpl) throws ProvisioningServiceClientException, SecurityProviderException
     {
     	System.out.println("Starting sample...");
     
@@ -181,7 +181,7 @@ public class ServiceEnrollmentService {
         
         // provisioning ends
         
-    	return individualEnrollmentResult;
+    	return deviceInfo;
     	
     }
 	
@@ -214,6 +214,12 @@ public class ServiceEnrollmentService {
         {
             System.out.println("\nQuery the next enrollments...");
             QueryResult queryResult = query.next();
+            Object obj[]  =  queryResult.getItems();
+            for(Object o:obj)
+            {
+            	IndividualEnrollment ieObj = (IndividualEnrollment)o;
+            	
+            }
             result.add(queryResult);
             System.out.println(queryResult);
         }

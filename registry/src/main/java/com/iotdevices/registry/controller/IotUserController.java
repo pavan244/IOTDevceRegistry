@@ -1,5 +1,7 @@
 package com.iotdevices.registry.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Scope;
@@ -21,6 +23,7 @@ import com.iotdevices.registry.azure.simulate.SimulatedDevice;
 import com.iotdevices.registry.config.IotEntityConfig;
 import com.iotdevices.registry.pojo.*;
 import com.iotdevices.registry.service.DeviceInfo;
+import com.iotdevices.registry.service.DeviceMessageDetails;
 import com.microsoft.azure.sdk.iot.provisioning.device.ProvisioningDeviceClient;
 import com.microsoft.azure.sdk.iot.provisioning.device.ProvisioningDeviceClientTransportProtocol;
 import com.microsoft.azure.sdk.iot.provisioning.device.internal.exceptions.ProvisioningDeviceClientException;
@@ -41,14 +44,14 @@ public class IotUserController {
 	  private SecurityProviderTPMEmulatorMyImpl securityProviderImpl;
 	
 	@PostMapping("/createDevice")
-	public String create(@RequestBody DeviceInfo deviceInfo){
+	public DeviceInfo create(@RequestBody DeviceInfo deviceInfo){
 		try {
 			
-			return enrollmentService.createEnrollment(deviceInfo,securityProviderImpl).toJson();
+			return enrollmentService.createEnrollment(deviceInfo,securityProviderImpl);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println(e.toString());
-			return "Unable to create service";
+			return null;
 		}
 		finally
 		{
@@ -95,6 +98,25 @@ public class IotUserController {
 		}
 		
 	}
+	
+	
+	@PostMapping("/getDeviceMessage")
+	public List<DeviceMessageDetails> getDeviceMessage(@RequestBody String deviceId){
+		try {
+			return iotEntityConfig.getDeviceMessageDetails(deviceId);
+		
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+			return null;
+		}
+		
+	}
+	
+	
+	
+	
 	
 	@GetMapping("/makeDeviceOffline")
 	public String makeDeviceOffline(){

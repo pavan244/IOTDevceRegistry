@@ -17,6 +17,7 @@ import com.google.gson.Gson;
 import com.iotdevices.registry.pojo.UserAccount;
 import com.iotdevices.registry.pojo.UserInfo;
 import com.iotdevices.registry.service.DeviceInfo;
+import com.iotdevices.registry.service.DeviceMessageDetails;
 
 @Repository
 @Component
@@ -46,6 +47,35 @@ public class IotEntityConfig {
 	      }
 	    return "";     
 	}
+	
+	
+	public List<DeviceMessageDetails> getDeviceMessageDetails(String deviceId) {
+		String query= "SELECT m.messageid, m.telemetric, m.date, m.source, m.deviceid, m.isvalid,d.location ,"
+				+ "d.id,d.status,d.version FROM messages m,deviceinfo d where m.deviceid = d.name and d.id = ?";
+		 List<Object[]>  list =  entityManager.createNativeQuery(query)
+	      .setParameter(1, deviceId).getResultList();
+		 List<DeviceMessageDetails> msgs = new ArrayList();
+	      for(Object[] obj:list)
+	      {
+	    	  DeviceMessageDetails details = new DeviceMessageDetails();
+	    	  details.setMessageId((String)obj[0]);
+	    	  details.setMessage((String)obj[1]);
+	    	  Date d = (Date)obj[2];
+	    	  details.setDate(d.toString());
+	    	  details.setType((String)obj[3]);
+	    	  details.setName((String)obj[4]);
+	    	  details.setStatus((String)obj[8]);
+	    	  details.setLoc((String)obj[6]);
+	    	  details.setId((String)obj[7]);
+	    	  details.setVersion((String)obj[9]);
+	    	  msgs.add(details);
+	      }
+	    return msgs;     
+	}
+	
+	
+	
+	
 	
 	@Transactional
 	public String insertDeviceMock(DeviceInfo deviceInfo)
