@@ -29,6 +29,15 @@ public class DeviceMessageDetails {
 	@JsonProperty("loc")
 	private String loc;
 	
+	@JsonProperty("comparedmessage")
+	private String comparedmessage;
+	
+	public String getComparedmessage() {
+		return comparedmessage;
+	}
+	public void setComparedmessage(String comparedmessage) {
+		this.comparedmessage = comparedmessage;
+	}
 	
 	public String getId() {
 		return id;

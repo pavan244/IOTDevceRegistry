@@ -129,7 +129,7 @@ public class IotUserController {
 	
 	
 	@PostMapping("/getDeviceMessage")
-	public List<DeviceMessageDetails> getDeviceMessage(@RequestBody DeviceId device){
+	public List<DeviceMessageDetails> getDeviceMessage(@RequestParam DeviceId device){
 		try {
 			return iotEntityConfig.getDeviceMessageDetails(device.getDeviceId());
 		

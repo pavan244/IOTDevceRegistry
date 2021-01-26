@@ -81,7 +81,7 @@ public class IotEntityConfig {
 	
 	public List<DeviceMessageDetails> getDeviceMessageDetails(String deviceId) {
 		String query= "SELECT m.messageid, m.telemetric, m.date, m.source, m.deviceid, m.isvalid,d.location ,"
-				+ "d.id,d.status,d.version FROM messages m,deviceinfo d where m.deviceid = d.name and d.id = ?";
+				+ "d.id,d.status,d.version,m.comparedmessage FROM messages m,deviceinfo d where m.deviceid = d.name and d.id = ?";
 		 List<Object[]>  list =  entityManager.createNativeQuery(query)
 	      .setParameter(1, deviceId).getResultList();
 		 List<DeviceMessageDetails> msgs = new ArrayList();
@@ -98,6 +98,7 @@ public class IotEntityConfig {
 	    	  details.setLoc((String)obj[6]);
 	    	  details.setId((String)obj[7]);
 	    	  details.setVersion((String)obj[9]);
+	    	  details.setComparedmessage((String)obj[10]);
 	    	  msgs.add(details);
 	      }
 	    return msgs;     
