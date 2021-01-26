@@ -20,15 +20,16 @@ public String createJsonMsgFromTelemetric(String telemetric)
 {
 	try {
 		HashMap<String,String> units = new HashMap<String,String>();
-		units.put("Centigrade", "10° C");
+		units.put("centigrade", "10° C");
 		units.put("longitude", "40° N");
 		units.put("altitude", "100 feet");
-		units.put("Fahrenheit", "70° F");
+		units.put("fahrenheit", "70° F");
 		units.put("longitude", " 75° W");
 		units.put("pressure", "36.5 psi");
 		units.put("humidity", "70%");
 		units.put("battery", "90%");
 		units.put("wifi", "00:25:96:12:34:56");
+		units.put("percentage", "60 %");
 		
 	  String json = telemetric;	
 	  ObjectMapper objectMapper = new ObjectMapper();
@@ -36,8 +37,11 @@ public String createJsonMsgFromTelemetric(String telemetric)
 	  JSONObject obj = new JSONObject();
 	  for(HashMap mp:list)
 	  {
-		  String value = units.get(mp.get("unit"));
-		  obj.put((String) mp.get("name"),value );
+		  String unit = (String)mp.get("unit");
+		  unit = unit.toLowerCase();
+		  String value = units.get(unit);
+		  String name = (String) mp.get("name");
+		  obj.put(name,value );
 		 
 	  }
 	  return obj.toString();

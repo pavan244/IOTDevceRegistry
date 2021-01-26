@@ -109,6 +109,7 @@ public class ProvisioningTpmSample
                 }
                 System.out.println("Waiting for Provisioning Service to register");
                 Thread.sleep(MAX_TIME_TO_WAIT_FOR_REGISTRATION);
+               
             }
 
             if (provisioningStatus.provisioningDeviceClientRegistrationInfoClient.getProvisioningDeviceClientStatus() == ProvisioningDeviceClientStatus.PROVISIONING_DEVICE_STATUS_ASSIGNED)
