@@ -14,6 +14,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.google.gson.Gson;
+import com.iotdevices.registry.pojo.DeviceString;
 import com.iotdevices.registry.pojo.UserAccount;
 import com.iotdevices.registry.pojo.UserInfo;
 import com.iotdevices.registry.service.DeviceInfo;
@@ -37,6 +38,35 @@ public class IotEntityConfig {
 	      .executeUpdate();
 	}
 	
+	@Transactional
+	public void insertWithQueryRegisterDevice(String deviceid,String connstring) {
+		
+		
+	    entityManager.createNativeQuery("INSERT INTO devicestring (deviceid, connstring) VALUES (?,?)")
+	      .setParameter(1, deviceid)
+	      .setParameter(2, connstring)
+	      .executeUpdate();
+	}
+	
+	public String getDataPointsString(String deviceId) {
+		 List  list =  entityManager.createNativeQuery("SELECT datapoints FROM public.deviceinfo where id = ?")
+	      .setParameter(1, deviceId).getResultList();
+	      if(list.size() > 0)
+	      {
+	    	  return (String) list.get(0);
+	      }
+	    return "";     
+	}
+	
+	public String getDeviceString(String deviceId) {
+		 List  list =  entityManager.createNativeQuery("select connstring from devicestring where deviceid = ?")
+	      .setParameter(1, deviceId).getResultList();
+	      if(list.size() > 0)
+	      {
+	    	  return (String) list.get(0);
+	      }
+	    return "";     
+	}
 	
 	public String selectEmailQuery(String email) {
 		 List  list =  entityManager.createNativeQuery("select name from account where email = ?")

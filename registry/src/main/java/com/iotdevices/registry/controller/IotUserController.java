@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -24,6 +25,7 @@ import com.iotdevices.registry.config.IotEntityConfig;
 import com.iotdevices.registry.pojo.*;
 import com.iotdevices.registry.service.DeviceInfo;
 import com.iotdevices.registry.service.DeviceMessageDetails;
+import com.iotdevices.registry.util.StringUtil;
 import com.microsoft.azure.sdk.iot.provisioning.device.ProvisioningDeviceClient;
 import com.microsoft.azure.sdk.iot.provisioning.device.ProvisioningDeviceClientTransportProtocol;
 import com.microsoft.azure.sdk.iot.provisioning.device.internal.exceptions.ProvisioningDeviceClientException;
@@ -42,6 +44,9 @@ public class IotUserController {
 	
 	@Autowired
 	  private SecurityProviderTPMEmulatorMyImpl securityProviderImpl;
+	
+	@Autowired
+	private StringUtil stringutil;
 	
 	@PostMapping("/createDevice")
 	public DeviceInfo create(@RequestBody DeviceInfo deviceInfo){
@@ -84,11 +89,14 @@ public class IotUserController {
 	
 	
 	
-	@PostMapping("/sendMessage")
-	public String sendMessages(@RequestBody String message){
+	@PostMapping("/sendMessageCorrect")
+	public String sendMessages(@RequestParam String deviceid){
 		try {
 			SimulatedDevice simulator = new SimulatedDevice();
-			simulator.run(message);
+			String connStr = iotEntityConfig.getDeviceString(deviceid);
+			String datapoints = iotEntityConfig.getDataPointsString(deviceid);
+			String message = stringutil.createJsonMsgFromTelemetric(datapoints);
+			simulator.run(message,connStr);
 			return "sucess fully posted";
 			
 		} catch (Exception e) {
@@ -100,10 +108,30 @@ public class IotUserController {
 	}
 	
 	
-	@PostMapping("/getDeviceMessage")
-	public List<DeviceMessageDetails> getDeviceMessage(@RequestBody String deviceId){
+	@PostMapping("/sendMessageWrong")
+	public String sendMessagesWrong(@RequestParam String deviceid){
 		try {
-			return iotEntityConfig.getDeviceMessageDetails(deviceId);
+			SimulatedDevice simulator = new SimulatedDevice();
+			String connStr = iotEntityConfig.getDeviceString(deviceid);
+			String datapoints = iotEntityConfig.getDataPointsString(deviceid);
+			String message = stringutil.createJsonMsgFromTelemetricWrong(datapoints);
+			simulator.run(message,connStr);
+			return "sucess fully posted";
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+			return "error";
+		}
+		
+	}
+	
+	
+	
+	@PostMapping("/getDeviceMessage")
+	public List<DeviceMessageDetails> getDeviceMessage(@RequestBody DeviceId device){
+		try {
+			return iotEntityConfig.getDeviceMessageDetails(device.getDeviceId());
 		
 			
 		} catch (Exception e) {
@@ -114,7 +142,19 @@ public class IotUserController {
 		
 	}
 	
-	
+	@PostMapping("/registerDevice")
+	public String register(@RequestParam String deviceid,@RequestParam String connString){
+		try {
+			 iotEntityConfig.insertWithQueryRegisterDevice(deviceid,connString);
+		     return "SucessFully Registered";
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+			return "Registration failed";
+		}
+		
+	}
 	
 	
 	
@@ -134,14 +174,14 @@ public class IotUserController {
 	
 	
 	@DeleteMapping("/deleteADevice")
-	public String deleteADevice(@RequestBody String deviceId){
+	public String deleteADevice(@RequestBody DeviceId device){
 		try {
-			boolean isDeleted = enrollmentService.deleteAnEnrollment(deviceId);
+			boolean isDeleted = enrollmentService.deleteAnEnrollment(device.getDeviceId());
 			if(isDeleted)
 			{
 				return "SucessFully Deleted";
 			}
-			return deviceId+" Device not Found";
+			return device.getDeviceId()+" Device not Found";
 		} catch (Exception e) {
 			// TODO: handle exception
 			return "Unable to Delete the Device";

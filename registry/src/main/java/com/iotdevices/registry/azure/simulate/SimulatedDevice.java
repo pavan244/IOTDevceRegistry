@@ -19,8 +19,8 @@ public class SimulatedDevice {
   // The device connection string to authenticate the device with your IoT hub.
   // Using the Azure CLI:
   // az iot hub device-identity show-connection-string --hub-name {YourIoTHubName} --device-id MyJavaDevice --output table
-  private String connString = "HostName=TMPOC.azure-devices.net;DeviceId=MyDevice2;SharedAccessKey=BSAN0+ENBDTaGkQRFYtdML58Q8JGTv9Aq41fjbh+hgw="
-  		+ "";
+ // private String connString = "HostName=TMPOC.azure-devices.net;DeviceId=MyDevice2;SharedAccessKey=BSAN0+ENBDTaGkQRFYtdML58Q8JGTv9Aq41fjbh+hgw="
+  //		+ "";
 
   // Using the MQTT protocol to connect to IoT Hub
   private static IotHubClientProtocol protocol = IotHubClientProtocol.MQTT_WS;
@@ -78,7 +78,7 @@ public class SimulatedDevice {
           synchronized (lockobj) {
             lockobj.wait();
           }
-          Thread.sleep(1000);
+          Thread.sleep(8000);
         }
       } catch (InterruptedException e) {
         System.out.println("Finished.");
@@ -86,7 +86,7 @@ public class SimulatedDevice {
     }
   }
 
-  public  void run(String message) throws IOException, URISyntaxException {
+  public  void run(String message,String connString) throws IOException, URISyntaxException {
 
     // Connect to the IoT hub.
     client = new DeviceClient(connString, protocol);
