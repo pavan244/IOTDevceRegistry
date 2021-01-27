@@ -7,7 +7,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -58,6 +58,9 @@ public class IotEntityConfig {
 	    return "";     
 	}
 	
+	
+	
+	
 	public String getDeviceString(String deviceId) {
 		 List  list =  entityManager.createNativeQuery("select connstring from devicestring where deviceid = ?")
 	      .setParameter(1, deviceId).getResultList();
@@ -67,6 +70,17 @@ public class IotEntityConfig {
 	      }
 	    return "";     
 	}
+	
+	public String getDataPoints(String deviceId) {
+		 List  list =  entityManager.createNativeQuery("select datapoints from deviceinfo where id = ?")
+	      .setParameter(1, deviceId).getResultList();
+	      if(list.size() > 0)
+	      {
+	    	  return (String) list.get(0);
+	      }
+	    return "";     
+	}
+	
 	
 	public String selectEmailQuery(String email) {
 		 List  list =  entityManager.createNativeQuery("select name from account where email = ?")
@@ -122,7 +136,7 @@ public class IotEntityConfig {
 		
 		entityManager.createNativeQuery("insert into deviceinfo (id, name, description, date,status,version,location,datapoints,settings,userid) VALUES (?,?,?,?,?,?,?,?,?,?)")
 		.setParameter(1, deviceInfo.getId()).setParameter(2, deviceInfo.getName()).setParameter(3, deviceInfo.getDescription())
-		.setParameter(4, date).setParameter(5, deviceInfo.getStatus()).setParameter(6, deviceInfo.getVersion()).setParameter(7, deviceInfo.getLocation())
+		.setParameter(4, date).setParameter(5, "Active").setParameter(6, deviceInfo.getVersion()).setParameter(7, deviceInfo.getLocation())
 		.setParameter(8,jsonDataPoints).setParameter(9, jsonDeviceSettings).setParameter(10, "pavan424@gmail.com").
 		executeUpdate();
 		}
@@ -132,6 +146,29 @@ public class IotEntityConfig {
 		}
 		return "SucessFully inserted";
 	}
+	
+	@Transactional
+	public String updateDeviceDataPoints(DeviceInfo deviceInfo) {	
+		try {
+			String jsonDeviceSettings = new Gson().toJson(deviceInfo.getDeviceSettings() );	
+		  entityManager.createNativeQuery("update deviceinfo set datapoints = ? where id = ?")
+				      .setParameter(1, jsonDeviceSettings).setParameter(2, deviceInfo.getId()).executeUpdate();
+				      
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			 return "Failed to Updated";
+		}
+		 return "sucessFully Updated";
+	      
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	/*
 	public List<DeviceInfo> getAllDevicesMock() {

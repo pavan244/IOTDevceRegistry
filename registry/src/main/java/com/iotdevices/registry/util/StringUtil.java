@@ -30,6 +30,19 @@ public String createJsonMsgFromTelemetric(String telemetric)
 		units.put("battery", "90%");
 		units.put("wifi", "00:25:96:12:34:56");
 		units.put("percentage", "60 %");
+		units.put("meters","100 meters");
+		units.put("feet","100 feet");
+		units.put("celsius","10° C");
+		units.put("fahrenheit","40° F");
+		units.put("psi","36.5 psi");
+		units.put("%" ,"80%");
+		units.put("wi","00:25:96:12:34:56");
+		
+		
+		
+		
+		
+		
 		
 	  String json = telemetric;	
 	  ObjectMapper objectMapper = new ObjectMapper();

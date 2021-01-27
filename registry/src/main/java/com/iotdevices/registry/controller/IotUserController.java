@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -58,16 +59,13 @@ public class IotUserController {
 			System.out.println(e.toString());
 			return null;
 		}
-		finally
-		{
-			System.gc();
-		}
+		
 	}
 	
 	@PostMapping("/getADevice")
-	public String getADevice(@RequestBody String deviceId){
+	public String getADevice(@RequestBody DeviceInfo deviceInfo){
 		try {
-			return enrollmentService.getIndividualDeviceInfo(deviceId).toJson();
+			return enrollmentService.getIndividualDeviceInfo(deviceInfo.getId()).toJson();
 		} catch (Exception e) {
 			// TODO: handle exception
 			return "Unable to find the device";
@@ -129,7 +127,7 @@ public class IotUserController {
 	
 	
 	@PostMapping("/getDeviceMessage")
-	public List<DeviceMessageDetails> getDeviceMessage(@RequestParam DeviceId device){
+	public List<DeviceMessageDetails> getDeviceMessage(@RequestBody DeviceId device){
 		try {
 			return iotEntityConfig.getDeviceMessageDetails(device.getDeviceId());
 		
@@ -141,6 +139,24 @@ public class IotUserController {
 		}
 		
 	}
+	
+	
+	@PostMapping("/getDataPoints")
+	public String getDataPoints(@RequestBody DeviceId device){
+		try {
+			return iotEntityConfig.getDataPoints(device.getDeviceId());
+		
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+			return null;
+		}
+		
+	}
+	
+	
+	
 	
 	@PostMapping("/registerDevice")
 	public String register(@RequestParam String deviceid,@RequestParam String connString){
@@ -155,6 +171,23 @@ public class IotUserController {
 		}
 		
 	}
+	
+	
+	@PutMapping("/updateDeviceDataPoints")
+	public String updateDeviceDataPoints(@RequestBody DeviceInfo deviceInfo){
+		try {
+			 return iotEntityConfig.updateDeviceDataPoints(deviceInfo);
+		    
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println(e.toString());
+			return "failed to update";
+		}
+		
+	}
+	
+	
 	
 	
 	
