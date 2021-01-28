@@ -51,7 +51,7 @@ public class IotEntityConfig {
 	}
 	
 	public String getDataPointsString(String deviceId) {
-		 List  list =  entityManager.createNativeQuery("SELECT id, name, description, date, status, version, location, datapoints FROM public.deviceinfo where id = ?")
+		 List  list =  entityManager.createNativeQuery("SELECT  datapoints FROM public.deviceinfo where id = ?")
 	      .setParameter(1, deviceId).getResultList();
 		 
 		 List<DeviceDetails> msgs = new ArrayList();

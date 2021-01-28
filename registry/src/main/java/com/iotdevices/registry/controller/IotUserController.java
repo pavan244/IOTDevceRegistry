@@ -64,9 +64,9 @@ public class IotUserController {
 	}
 	
 	@PostMapping("/getADevice")
-	public List<DeviceDetails> getADevice(@RequestBody DeviceInfo deviceInfo){
+	public List<DeviceDetails> getADevice(@RequestBody DeviceId device){
 		try {
-			return iotEntityConfig.getDeviceDetaislString(deviceInfo.getId());
+			return iotEntityConfig.getDeviceDetaislString(device.getDeviceId());
 			
 			
 		} catch (Exception e) {

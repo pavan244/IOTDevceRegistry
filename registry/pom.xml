@@ -88,8 +88,13 @@
             <artifactId>google-api-services-oauth2</artifactId>    
              <version>v2-rev65-1.17.0-rc</version>  
         </dependency>
-        
-        
+
+	<!-- https://mvnrepository.com/artifact/org.json/json -->
+	<dependency>
+		<groupId>org.json</groupId>
+		<artifactId>json</artifactId>
+		<version>20201115</version>
+	</dependency>
         
         
         
