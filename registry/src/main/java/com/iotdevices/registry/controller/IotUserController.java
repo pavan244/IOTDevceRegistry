@@ -1,5 +1,6 @@
 package com.iotdevices.registry.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -63,12 +64,14 @@ public class IotUserController {
 	}
 	
 	@PostMapping("/getADevice")
-	public String getADevice(@RequestBody DeviceInfo deviceInfo){
+	public List<DeviceDetails> getADevice(@RequestBody DeviceInfo deviceInfo){
 		try {
-			return enrollmentService.getIndividualDeviceInfo(deviceInfo.getId()).toJson();
+			return iotEntityConfig.getDeviceDetaislString(deviceInfo.getId());
+			
+			
 		} catch (Exception e) {
 			// TODO: handle exception
-			return "Unable to find the device";
+			return new ArrayList();
 		}
 		
 	}
@@ -174,7 +177,7 @@ public class IotUserController {
 	
 	
 	@PutMapping("/updateDeviceDataPoints")
-	public String updateDeviceDataPoints(@RequestBody DeviceInfo deviceInfo){
+	public String updateDeviceDataPoints(@RequestBody UpdateDataPoins deviceInfo){
 		try {
 			 return iotEntityConfig.updateDeviceDataPoints(deviceInfo);
 		    

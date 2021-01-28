@@ -32,6 +32,18 @@ public class DeviceMessageDetails {
 	@JsonProperty("comparedmessage")
 	private String comparedmessage;
 	
+	
+	@JsonProperty("isvalid")
+	private boolean isvalid;
+	
+	
+	
+	public boolean isIsvalid() {
+		return isvalid;
+	}
+	public void setIsvalid(boolean isvalid) {
+		this.isvalid = isvalid;
+	}
 	public String getComparedmessage() {
 		return comparedmessage;
 	}

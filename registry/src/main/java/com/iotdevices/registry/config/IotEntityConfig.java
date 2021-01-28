@@ -14,7 +14,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.google.gson.Gson;
+import com.iotdevices.registry.pojo.DeviceDetails;
 import com.iotdevices.registry.pojo.DeviceString;
+import com.iotdevices.registry.pojo.UpdateDataPoins;
 import com.iotdevices.registry.pojo.UserAccount;
 import com.iotdevices.registry.pojo.UserInfo;
 import com.iotdevices.registry.service.DeviceInfo;
@@ -49,8 +51,10 @@ public class IotEntityConfig {
 	}
 	
 	public String getDataPointsString(String deviceId) {
-		 List  list =  entityManager.createNativeQuery("SELECT datapoints FROM public.deviceinfo where id = ?")
+		 List  list =  entityManager.createNativeQuery("SELECT id, name, description, date, status, version, location, datapoints FROM public.deviceinfo where id = ?")
 	      .setParameter(1, deviceId).getResultList();
+		 
+		 List<DeviceDetails> msgs = new ArrayList();
 	      if(list.size() > 0)
 	      {
 	    	  return (String) list.get(0);
@@ -59,7 +63,30 @@ public class IotEntityConfig {
 	}
 	
 	
-	
+	public List<DeviceDetails> getDeviceDetaislString(String deviceId) {
+		 List<Object[]>  list =  entityManager.createNativeQuery("SELECT id, name, description, date, status, version, location, datapoints FROM public.deviceinfo where id = ?")
+	      .setParameter(1, deviceId).getResultList();
+		 
+		 List<DeviceDetails> msgs = new ArrayList();
+	      
+		 for(Object[] obj:list)
+	      {
+			 DeviceDetails details = new DeviceDetails();
+			 details.setId((String)obj[0]);
+			 details.setName((String)obj[1]);
+			 details.setDescription((String)obj[2]);
+			 details.setDate((Date)obj[3]);
+			 details.setStatus((String)obj[4]);
+			 details.setVersion((String)obj[5]);
+			 details.setLocation((String)obj[6]);
+			 details.setDatapoints((String)obj[7]);
+	    	  msgs.add(details);
+	      }
+		 
+		 
+		 
+	    return msgs;     
+	}
 	
 	public String getDeviceString(String deviceId) {
 		 List  list =  entityManager.createNativeQuery("select connstring from devicestring where deviceid = ?")
@@ -113,6 +140,7 @@ public class IotEntityConfig {
 	    	  details.setId((String)obj[7]);
 	    	  details.setVersion((String)obj[9]);
 	    	  details.setComparedmessage((String)obj[10]);
+	    	  details.setIsvalid((boolean)obj[5]);
 	    	  msgs.add(details);
 	      }
 	    return msgs;     
@@ -148,9 +176,9 @@ public class IotEntityConfig {
 	}
 	
 	@Transactional
-	public String updateDeviceDataPoints(DeviceInfo deviceInfo) {	
+	public String updateDeviceDataPoints(UpdateDataPoins deviceInfo) {	
 		try {
-			String jsonDeviceSettings = new Gson().toJson(deviceInfo.getDeviceSettings() );	
+			String jsonDeviceSettings = new Gson().toJson(deviceInfo.getDataPoints() );	
 		  entityManager.createNativeQuery("update deviceinfo set datapoints = ? where id = ?")
 				      .setParameter(1, jsonDeviceSettings).setParameter(2, deviceInfo.getId()).executeUpdate();
 				      
