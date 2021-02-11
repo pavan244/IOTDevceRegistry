@@ -1,6 +1,7 @@
 package com.iotdevices.registry.config;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -131,7 +132,8 @@ public class IotEntityConfig {
 	    	  DeviceMessageDetails details = new DeviceMessageDetails();
 	    	  details.setMessageId((String)obj[0]);
 	    	  details.setMessage((String)obj[1]);
-	    	  Date d = (Date)obj[2];
+	    	  Timestamp timestamp = (Timestamp)obj[2];
+	    	  java.util.Date d = new java.util.Date(timestamp.getTime()); 
 	    	  details.setDate(d.toString());
 	    	  details.setType((String)obj[3]);
 	    	  details.setName((String)obj[4]);
