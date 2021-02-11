@@ -23,7 +23,7 @@ import com.microsoft.azure.sdk.iot.provisioning.device.ProvisioningDeviceClientS
 import com.microsoft.azure.sdk.iot.provisioning.device.ProvisioningDeviceClientTransportProtocol;
 import com.microsoft.azure.sdk.iot.provisioning.security.SecurityProviderTpm;
 import com.microsoft.azure.sdk.iot.provisioning.security.exceptions.SecurityProviderException;
-import com.microsoft.azure.sdk.iot.provisioning.security.hsm.SecurityProviderTPMEmulator;
+
 import com.microsoft.azure.sdk.iot.provisioning.service.ProvisioningServiceClient;
 import com.microsoft.azure.sdk.iot.provisioning.service.Query;
 import com.microsoft.azure.sdk.iot.provisioning.service.configs.Attestation;
